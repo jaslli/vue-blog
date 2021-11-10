@@ -103,6 +103,7 @@ export default {
 .top-container {
   display: flex;
   justify-content: space-between;
+  margin: 0 15px;
 }
 
 .link {

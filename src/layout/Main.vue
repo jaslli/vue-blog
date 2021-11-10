@@ -1,12 +1,12 @@
 <template>
   <v-main>
     <v-container fluid>
-    <v-row class="d-flex justify-center">
+      <v-row class="d-flex justify-center">
         <Aside />
-        <v-col cols="9">
+        <v-col cols="7" class="d-flex justify-center">
           <router-view></router-view>
         </v-col>
-    </v-row>
+      </v-row>
     </v-container>
   </v-main>
 </template>
@@ -19,5 +19,5 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 </style>
