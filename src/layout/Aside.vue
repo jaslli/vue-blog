@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="2" v-if="flag">
+  <v-col cols="12" md="3" order-md="1">
     <v-container fluid>
       <div id="Aside" class="d-flex flex-column align-center">
         <v-hover>
@@ -54,17 +54,11 @@ import "@/assets/iconfont.js";
 
 export default {
   name: "Aside",
-  data() {
-    return {
-      flag: true,
-    };
-  },
 };
 </script>
 
 <style scoped>
 #Aside {
-  /* position: fixed; */
   width: 100%;
   height: 1000px;
 }
@@ -72,6 +66,7 @@ export default {
 .author {
   height: 342.4px;
   min-width: 277.5px;
+  left: 110px;
 }
 
 .author img {

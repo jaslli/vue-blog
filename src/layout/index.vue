@@ -1,16 +1,19 @@
 <template>
   <v-app id="inspire">
+    <!-- 导航栏 -->
     <TopBar />
-    <Main />
+    <!-- 正文内容 -->
+    <v-main>
+      <router-view :key="$route.fullPath" />
+    </v-main>
   </v-app>
 </template>
 
 <script>
 import TopBar from "./TopBar.vue";
-import Main from "./Main.vue";
 
 export default {
-  components: { TopBar, Main },
+  components: { TopBar },
   data: () => ({}),
 };
 </script>
