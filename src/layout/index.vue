@@ -6,14 +6,16 @@
     <v-main>
       <router-view :key="$route.fullPath" />
     </v-main>
+    <Footer></Footer>
   </v-app>
 </template>
 
 <script>
 import TopBar from "./TopBar.vue";
+import Footer from "./Footer.vue"
 
 export default {
-  components: { TopBar },
+  components: { TopBar, Footer },
   data: () => ({}),
 };
 </script>

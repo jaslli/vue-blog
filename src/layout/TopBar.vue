@@ -29,11 +29,7 @@
       电脑的导航栏
       仅在xs的大小隐藏 class="hidden-xs-only"
     -->
-    <v-app-bar
-      app
-      hide-on-scroll
-      flat
-    >
+    <v-app-bar color="transparent" app hide-on-scroll flat>
       <v-container class="top-container" fluid>
         <!-- 标题 -->
         <router-link to="/" class="link"> yww </router-link>
@@ -91,7 +87,7 @@ export default {
   name: "TopBar",
   data() {
     return {};
-  }
+  },
 };
 </script>
 
