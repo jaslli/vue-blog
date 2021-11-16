@@ -44,6 +44,48 @@
             </v-card>
           </template>
         </v-hover>
+        <v-hover>
+          <template v-slot:default="{ hover }">
+            <v-card
+              class="author d-flex flex-column align-center justify-center"
+              :elevation="hover ? 20 : 4"
+              rounded="lg"
+            >
+              <v-avatar size="110">
+                <v-img src="https://img.yww52.com/avatar.jpg" />
+              </v-avatar>
+              <span>Yw</span>
+              <p>永远相信美好的事情即将发生</p>
+              <div class="social">
+                <a href="javascript:;">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#iconQQ" />
+                  </svg>
+                </a>
+                <a href="javascript:;">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#iconbilibili" />
+                  </svg>
+                </a>
+                <a href="javascript:;">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#iconweixin" />
+                  </svg>
+                </a>
+                <a href="javascript:;">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#iconGitHub" />
+                  </svg>
+                </a>
+                <a href="javascript:;">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#iconyouxiang" />
+                  </svg>
+                </a>
+              </div>
+            </v-card>
+          </template>
+        </v-hover>
       </div>
     </v-container>
   </v-col>

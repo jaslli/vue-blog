@@ -1,89 +1,103 @@
 <template>
-  <v-container fluid>
+  <div>
     <!-- 主页banner -->
-    <div class="banner" :style="bannerCover()"></div>
-
-    <v-row>
-      <!-- 文章列表 -->
-      <v-col cols="12" md="9" order-md="2">
-        <!-- 文章卡片 -->
-        <v-hover v-for="(item, index) in articleList" :key="index">
-          <template v-slot:default="{ hover }">
-            <v-card
-              :elevation="hover ? 20 : 4"
-              rounded="lg"
-              class="article-card"
-            >
-              <!-- 文章封面 -->
-              <div :class="location(index)">
-                <router-link to="/">
-                  <v-img
-                    width="100%"
-                    height="100%"
-                    :src="item.img"
-                    class="article-hover"
-                  />
-                </router-link>
-              </div>
-              <!-- 文章信息 -->
-              <div class="article-info">
-                <!-- 标题 -->
-                <div class="article-title">
-                  <router-link to="/">
-                    {{ item.title }}
-                  </router-link>
-                </div>
-                <!-- 文章标识 -->
-                <div class="article-mark">
-                  <!-- 置顶标识 -->
-                  <span class="isTop" v-if="item.isTop === 1">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#iconzhiding" />
-                    </svg>
-                    置顶
-                    <span class="separator">|</span>
-                  </span>
-                  <!-- 发表时间 -->
-                  <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#iconrili" />
-                  </svg>
-                  发表于 {{ item.createdTime }}
-                  <span class="separator">|</span>
-                  <!-- 更新时间 -->
-                  <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icongengxinriqitishi" />
-                  </svg>
-                  更新于 {{ item.updatedTime }}
-                  <span class="separator">|</span>
-                  <!-- 文章分类 -->
-                  <router-link to="/">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#iconfenlei1" />
-                    </svg>
-                    {{ item.categoryName }}
-                  </router-link>
-                </div>
-                <div class="article-introduction">
-                  {{ item.introduction }}
-                </div>
-              </div>
-            </v-card>
-          </template>
-        </v-hover>
-        <!-- 分页 -->
-        <div class="Pagination">
-          <v-pagination
-            :value="index"
-            v-model="total"
-            :length="page"
-            :total-visible="totalVisible"
-          ></v-pagination>
+    <v-banner height="100vh">
+      <div class="banner" :style="bannerCover()">
+        <!-- 博客主标题 -->
+        <div class="banner-container">
+          <h1>yww的博客</h1>
         </div>
-      </v-col>
-      <!-- 侧边栏 -->
-      <Aside />
-    </v-row>
-  </v-container>
+        <!-- 向下滚动 -->
+        <div class="scroll-down" @click="scrollDown">
+          <v-icon color="#fff" class="scroll-down-effects">
+            mdi-chevron-down
+          </v-icon>
+        </div>
+      </div>
+    </v-banner>
+    <v-container fluid>
+      <v-row>
+        <!-- 文章列表 -->
+        <v-col cols="12" md="9" order-md="2">
+          <!-- 文章卡片 -->
+          <v-hover v-for="(item, index) in articleList" :key="index">
+            <template v-slot:default="{ hover }">
+              <v-card
+                :elevation="hover ? 20 : 4"
+                rounded="lg"
+                class="article-card"
+              >
+                <!-- 文章封面 -->
+                <div :class="location(index)">
+                  <router-link to="/">
+                    <v-img
+                      width="100%"
+                      height="100%"
+                      :src="item.img"
+                      class="article-hover"
+                    />
+                  </router-link>
+                </div>
+                <!-- 文章信息 -->
+                <div class="article-info">
+                  <!-- 标题 -->
+                  <div class="article-title">
+                    <router-link to="/">
+                      {{ item.title }}
+                    </router-link>
+                  </div>
+                  <!-- 文章标识 -->
+                  <div class="article-mark">
+                    <!-- 置顶标识 -->
+                    <span class="isTop" v-if="item.isTop === 1">
+                      <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#iconzhiding" />
+                      </svg>
+                      置顶
+                      <span class="separator">|</span>
+                    </span>
+                    <!-- 发表时间 -->
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#iconrili" />
+                    </svg>
+                    发表于 {{ item.createdTime }}
+                    <span class="separator">|</span>
+                    <!-- 更新时间 -->
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icongengxinriqitishi" />
+                    </svg>
+                    更新于 {{ item.updatedTime }}
+                    <span class="separator">|</span>
+                    <!-- 文章分类 -->
+                    <router-link to="/">
+                      <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#iconfenlei1" />
+                      </svg>
+                      {{ item.categoryName }}
+                    </router-link>
+                  </div>
+                  <div class="article-introduction">
+                    {{ item.introduction }}
+                  </div>
+                </div>
+              </v-card>
+            </template>
+          </v-hover>
+          <!-- 分页 -->
+          <div class="Pagination">
+            <v-pagination
+              :value="index"
+              v-model="total"
+              :length="page"
+              :total-visible="totalVisible"
+            ></v-pagination>
+          </div>
+        </v-col>
+        <!-- 侧边栏 -->
+        <Aside />
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -124,6 +138,14 @@ export default {
       index: 1,
     };
   },
+  methods: {
+    scrollDown() {
+      window.scrollTo({
+        behavior: "smooth",
+        top: document.documentElement.clientHeight,
+      });
+    },
+  },
   computed: {
     // 判定文章封面的排列，偶数封面在右，奇数在左
     location() {
@@ -158,7 +180,51 @@ export default {
   left: 0;
   right: 0;
   height: 100vh;
+  text-align: center;
   background-attachment: fixed;
+}
+
+.banner .banner-container {
+  height: 100vh;
+  color: #d81e06;
+  padding-top: 40vh;
+}
+
+.scroll-down {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.scroll-down i {
+  font-size: 3rem;
+}
+.scroll-down-effects {
+  color: #eee !important;
+  text-align: center;
+  text-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
+  line-height: 1.5;
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  animation: scroll-down-effect 1.5s infinite;
+}
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+  }
+  50% {
+    top: -16px;
+    opacity: 1;
+    filter: none;
+  }
+  100% {
+    top: 0;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+  }
 }
 
 .article-card {

@@ -24,14 +24,12 @@
         </div>
       </v-container>
     </v-app-bar> -->
-    
 
     <!--
       电脑的导航栏
       仅在xs的大小隐藏 class="hidden-xs-only"
     -->
     <v-app-bar
-      color="transparent"
       app
       hide-on-scroll
       flat
@@ -90,12 +88,10 @@
 <script>
 import "@/assets/iconfont.js";
 export default {
-  name: 'TopBar',
+  name: "TopBar",
   data() {
-    return {
-      drawer: false,
-    };
-  },
+    return {};
+  }
 };
 </script>
 
@@ -109,7 +105,7 @@ export default {
 .link {
   cursor: pointer;
   text-decoration: none;
-  color: #cfcece;
+  color: #4c4948;
   font-size: 1.25rem;
 }
 
