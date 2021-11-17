@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 主页banner -->
-    <v-banner height="100vh">
+    <v-banner height="100vh" shaped>
       <div class="banner" :style="bannerCover()">
         <!-- 博客主标题 -->
         <div class="banner-container">
@@ -162,9 +162,7 @@ export default {
       return function () {
         let banner = "https://img.yww52.com/about_top_img.jpg";
         // TODO 寻找vuex中的banner图
-        return (
-          "background: url(" + banner + ") center center / cover no-repeat"
-        );
+        return "background-image: url(" + banner + ");";
       };
     },
   },
@@ -181,6 +179,9 @@ export default {
   right: 0;
   height: 100vh;
   text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   background-attachment: fixed;
 }
 
@@ -196,9 +197,11 @@ export default {
   bottom: 0;
   width: 100%;
 }
+
 .scroll-down i {
   font-size: 3rem;
 }
+
 .scroll-down-effects {
   color: #eee !important;
   text-align: center;
@@ -209,6 +212,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   animation: scroll-down-effect 1.5s infinite;
 }
+
 @keyframes scroll-down-effect {
   0% {
     top: 0;
