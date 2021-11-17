@@ -1,14 +1,7 @@
 <template>
   <div>
     <!-- 归档页banner -->
-    <v-banner height="350px" shaped>
-      <div class="banner" :style="bannerCover()">
-        <!-- 归档页标题 -->
-        <div class="banner-container">
-          <h1>归档页</h1>
-        </div>
-      </div>
-    </v-banner>
+    <banner title="归档页" :bannerCover="bannerCover()" />
     <v-container fluid>
       <v-hover>
         <template v-slot:default="{ hover }">
@@ -66,8 +59,10 @@
 </template>
 
 <script>
+import banner from "@/components/banner";
 export default {
   name: "Archives",
+  components: { banner },
   data() {
     return {
       // 文章列表
@@ -109,7 +104,7 @@ export default {
         } else {
           return "";
         }
-      }
+      };
     },
     // 设置归档页banner
     bannerCover() {
@@ -124,24 +119,6 @@ export default {
 </script>
 
 <style scoped>
-.banner {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -100px;
-  height: 440px;
-  text-align: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: scroll;
-}
-
-.banner .banner-container {
-  color: #d81e06;
-  margin-top: 200px;
-}
-
 .timeline-container {
   width: 900px;
   margin: 0 auto 50px auto;
@@ -169,11 +146,11 @@ export default {
   padding: 20px 0 0 20px;
 }
 
-.timeline-container .timeline .timeline-item .article-context .article-time{
+.timeline-container .timeline .timeline-item .article-context .article-time {
   color: #858585;
 }
 
-.timeline-container .timeline .timeline-item .article-context .article-title{
+.timeline-container .timeline .timeline-item .article-context .article-title {
   margin-top: 17px;
   font-size: 1.3em;
 }

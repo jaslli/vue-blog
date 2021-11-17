@@ -1,13 +1,7 @@
 <template>
   <div>
     <!-- 分类页banner -->
-    <v-banner height="350px" shaped>
-      <div class="banner" :style="bannerCover()">
-        <div class="banner-container">
-          <h1>分类页</h1>
-        </div>
-      </div>
-    </v-banner>
+    <banner title="分类页" :bannerCover="bannerCover()" />
     <v-container fluid>
       <v-hover>
         <template v-slot:default="{ hover }">
@@ -41,7 +35,10 @@
 </template>
 
 <script>
+import banner from "@/components/banner";
 export default {
+  name: 'Categories',
+  components: { banner },
   data() {
     return {};
   },
@@ -59,24 +56,6 @@ export default {
 </script>
 
 <style scoped>
-.banner {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -100px;
-  height: 440px;
-  text-align: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: scroll;
-}
-
-.banner .banner-container {
-  color: #d81e06;
-  margin-top: 200px;
-}
-
 .categories-container {
   width: 900px;
   margin: 0 auto 50px auto;
