@@ -111,7 +111,7 @@ export default {
         }
       }
     },
-    // 设置主页banner
+    // 设置归档页banner
     bannerCover() {
       return function () {
         let banner = "https://img.yww52.com/about_top_img.jpg";
@@ -144,7 +144,7 @@ export default {
 
 .timeline-container {
   width: 900px;
-  margin: 0 279px 50px 279px;
+  margin: 0 auto 50px auto;
   padding: 50px 35px;
 }
 
