@@ -46,9 +46,7 @@ export default {
     // 设置分类页banner
     bannerCover() {
       return function () {
-        let banner = "https://img.yww52.com/about_top_img.jpg";
-        // TODO 寻找vuex中的banner图
-        return "background-image: url(" + banner + ");";
+        return "background-image: url(" + this.$store.getters.CategoriesBanner + ");";
       };
     },
   },

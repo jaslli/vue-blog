@@ -10,6 +10,7 @@
             rounded="lg"
             class="about-container"
           >
+            <div>正在设计开发</div>
           </v-card>
         </template>
       </v-hover>
@@ -25,9 +26,7 @@ export default {
   computed: {
     bannerCover() {
       return function () {
-        let banner = "https://img.yww52.com/about_top_img.jpg";
-        // TODO 寻找vuex中的banner图
-        return "background-image: url(" + banner + ");";
+        return "background-image: url(" + this.$store.getters.AboutBanner + ");";
       };
     },
   },

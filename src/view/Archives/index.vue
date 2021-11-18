@@ -108,7 +108,18 @@ export default {
         'deep-purple lighten-1',
         'indigo lighten-1',
         'blue lighten-1',
-        'green lighten-1'
+        'green lighten-1',
+        'light-blue lighten-1',
+        'cyan lighten-1',
+        'teal lighten-1',
+        'light-green lighten-1',
+        'lime lighten-1',
+        'yellow lighten-1',
+        'amber lighten-1',
+        'orange lighten-1',
+        'deep-orange lighten-1',
+        'blue-grey lighten-1',
+        'grey lighten-1'
       ]
     };
   },
@@ -126,9 +137,7 @@ export default {
     // 设置归档页banner
     bannerCover() {
       return function () {
-        let banner = "https://img.yww52.com/about_top_img.jpg";
-        // TODO 寻找vuex中的banner图
-        return "background-image: url(" + banner + ");";
+        return "background-image: url(" + this.$store.getters.ArchivesBanner + ");";
       };
     },
     // 点容器的随机颜色

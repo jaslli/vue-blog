@@ -11,10 +11,10 @@
               rounded="lg"
             >
               <v-avatar size="110">
-                <v-img src="https://img.yww52.com/avatar.jpg" />
+                <v-img :src=$store.getters.Avatar />
               </v-avatar>
-              <span>Yw</span>
-              <p>永远相信美好的事情即将发生</p>
+              <span>{{$store.getters.name}}</span>
+              <p>{{$store.getters.desc}}</p>
               <div class="social">
                 <a href="javascript:;">
                   <svg class="icon" aria-hidden="true">
@@ -60,7 +60,7 @@
                 <span>公告</span>
               </div>
               <div class="notice-context">
-                {{ notice }}
+                {{ $store.getters.notice }}
               </div>
             </v-card>
           </template>
@@ -124,7 +124,6 @@ export default {
   name: "Aside",
   data() {
     return {
-      notice: "欢迎来到我的博客!",
       arctilTotal: 64,
       textTotal: 161.4,
       peopleTotal: 15014
