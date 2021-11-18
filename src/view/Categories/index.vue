@@ -56,8 +56,10 @@ export default {
 </script>
 
 <style scoped>
+
 .categories-container {
   width: 900px;
+  min-height: 100px;
   margin: 0 auto 50px auto;
   padding: 50px 35px;
 }

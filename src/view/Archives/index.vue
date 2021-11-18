@@ -17,6 +17,8 @@
               <v-timeline-item
                 v-for="(article, index) in articleList"
                 :key="index"
+                small
+                :color="PointColor()"
               >
                 <v-hover>
                   <template v-slot:default="{ hover }">
@@ -26,7 +28,9 @@
                       class="timeline-item"
                       :style="location(index)"
                     >
-                      <v-img :src="article.img" class="article-img"></v-img>
+                      <router-link to="/archives">
+                        <v-img :src="article.img" class="article-img" />
+                      </router-link>
                       <div class="article-context">
                         <!-- 发表时间 -->
                         <div class="article-time">
@@ -35,7 +39,9 @@
                           </svg>
                           {{ article.createdTime }}
                         </div>
-                        <div class="article-title">{{ article.title }}</div>
+                        <router-link to="/archives" class="article-title">
+                          {{ article.title }}
+                        </router-link>
                       </div>
                     </v-card>
                   </template>
@@ -94,9 +100,20 @@ export default {
       totalVisible: 5,
       // 当前选定页
       index: 1,
+      // 点容器的颜色
+      pointcolor: [
+        'red lighten-1',
+        'pink lighten-1',
+        'purple lighten-1',
+        'deep-purple lighten-1',
+        'indigo lighten-1',
+        'blue lighten-1',
+        'green lighten-1'
+      ]
     };
   },
   computed: {
+    // 判定文章的方向
     location() {
       return function (index) {
         if (index % 2 != 0) {
@@ -114,6 +131,12 @@ export default {
         return "background-image: url(" + banner + ");";
       };
     },
+    // 点容器的随机颜色
+    PointColor() {
+      return function() {
+        return this.pointcolor[Math.floor(Math.random()*this.pointcolor.length)]
+      }
+    }
   },
 };
 </script>
@@ -148,11 +171,21 @@ export default {
 
 .timeline-container .timeline .timeline-item .article-context .article-time {
   color: #858585;
+  margin-bottom: 17px;
 }
 
 .timeline-container .timeline .timeline-item .article-context .article-title {
-  margin-top: 17px;
   font-size: 1.3em;
+  color: black;
+  text-decoration: none;
+}
+
+.timeline-container
+  .timeline
+  .timeline-item
+  .article-context
+  .article-title:hover {
+  color: #49b1f5;
 }
 
 .timeline-container .Pagination {

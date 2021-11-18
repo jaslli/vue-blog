@@ -8,25 +8,28 @@
           <v-card
             :elevation="hover ? 20 : 4"
             rounded="lg"
-            class="categories-container"
+            class="link-container"
           >
-            <ul class="categories-list">
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-            </ul>
+            <div class="link-group">
+              <!-- 分组名称 -->
+              <div class="link-group-title">闪闪发光</div>
+              <!-- 分组介绍 -->
+              <div class="link-group-introduction">这些可能就是大佬吧</div>
+              <!-- 分组成员 -->
+              <div class="link-list d-flex flex-wrap">
+                <div class="link-item" v-for="(item, index) in 8" :key="index">
+                  <a href="javascript:;">
+                    <v-avatar size="60" class="link-item-img">
+                      <img src="https://img.yww52.com/avatar.jpg" alt="" />
+                    </v-avatar>
+                    <span class="link-item-name">yww</span>
+                    <span class="link-item-desc"
+                      >hello worldssssssssssssss</span
+                    >
+                  </a>
+                </div>
+              </div>
+            </div>
           </v-card>
         </template>
       </v-hover>
@@ -51,5 +54,86 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.link-container {
+  width: 900px;
+  min-height: 100px;
+  margin: 0 auto 50px auto;
+  padding: 50px 35px;
+}
+
+.link-container .link-group .link-group-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 14px;
+  transition: margin-left 0.4s;
+}
+
+.link-container .link-group .link-group-title:hover {
+  color: #49b1f5;
+  margin-left: 1.3rem;
+}
+
+.link-container .link-group .link-group-introduction {
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.link-container .link-group .link-list {
+  padding: 10px 10px 0 10px;
+}
+
+.link-container .link-group .link-list .link-item {
+  position: relative;
+  height: 90px;
+  background: transparent;
+  width: calc(100% / 3 - 15px);
+  margin: 15px 7px;
+  line-height: 17px;
+  border-radius: 0.7em;
+}
+
+.link-container .link-group .link-list .link-item a {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.link-container .link-group .link-list .link-item:hover {
+  box-shadow: 0 2px 15px #49b1f5;
+  background: #49b1f5;
+}
+
+.link-container .link-group .link-list .link-item .link-item-img {
+  margin: 15px 10px;
+  float: left;
+}
+
+.link-container .link-group .link-list .link-item .link-item-name {
+  font-size: 1.43em;
+  font-weight: 700;
+  height: 40px;
+  float: right;
+  width: calc(100% - 90px);
+  text-align: center;
+  display: block;
+  padding: 16px 10px 0 0;
+  text-decoration: none;
+  color: black;
+}
+
+.link-container .link-group .link-list .link-item .link-item-desc {
+  height: 50px;
+  display: block;
+  float: right;
+  width: calc(100% - 90px);
+  font-size: 0.93em;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 16px 10px 16px 0;
+  color: black;
+}
 </style>
