@@ -29,10 +29,10 @@
       电脑的导航栏
       仅在xs的大小隐藏 class="hidden-xs-only"
     -->
-    <v-app-bar color="transparent" app hide-on-scroll flat>
+    <v-app-bar :class="barClass" app hide-on-scroll flat>
       <v-container class="top-container" fluid>
-        <!-- 标题 -->
-        <router-link to="/" class="link"> yww </router-link>
+        <!-- 副标题 -->
+        <router-link to="/" class="subtitle"> yww </router-link>
         <!-- 导航 -->
         <ul class="top-links">
           <li>
@@ -86,27 +86,90 @@ import "@/assets/iconfont.js";
 export default {
   name: "TopBar",
   data() {
-    return {};
+    return {
+      barClass: 'bar-top'
+    };
   },
+  mounted() {
+    // 监听滚动条
+    window.addEventListener("scroll", this.scroll);
+  },
+  methods: {
+    scroll() {
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      if (scrollTop > 64) {
+        this.barClass = "bar";
+      } else {
+        this.barClass = "bar-top";
+      }
+    },
+  }
 };
 </script>
 
 <style scoped>
+
+.bar {
+  background: rgba(255,255,255,.8) !important;
+  box-shadow: 0 5px 6px -5px rgb(133 133 133 / 60%) !important;
+}
+
+.bar-top {
+  background: transparent !important;
+}
+
+.bar-top a {
+  color: #eee !important;
+}
+
 .top-container {
   display: flex;
   justify-content: space-between;
   margin: 0 15px;
 }
 
+.subtitle {
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: #4c4948;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.subtitle:hover {
+  color: #49B1F5;
+}
+
 .link {
+  position: relative;
   cursor: pointer;
   text-decoration: none;
   color: #4c4948;
   font-size: 1.25rem;
 }
 
+.link:after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 0;
+  background-color: #80c8f8;
+  left: 0;
+  bottom: -6px;
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+
 .link:hover {
-  color: #13e2b5;
+  color: #49B1F5;
+}
+
+.link:hover:after {
+  width: 100%;
 }
 
 .top-links li {

@@ -2,7 +2,7 @@
   <div>
     <!-- 主页banner -->
     <v-banner height="100vh" shaped>
-      <div class="banner" :style="bannerCover()">
+      <div class="banner animate__animated animate__pulse" :style="bannerCover()">
         <!-- 博客主标题 -->
         <div class="banner-container">
           <h1>yww的博客</h1>

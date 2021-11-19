@@ -1,7 +1,7 @@
 <template>
   <!-- 其他页面的banner -->
   <v-banner height="350px" shaped>
-    <div class="banner" :style="bannerCover">
+    <div class="banner animate__animated animate__pulse" :style="bannerCover">
       <div class="banner-container">
         <h1>{{ title }}</h1>
       </div>
