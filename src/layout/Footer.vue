@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     // 计时器
-    running: function () {
+    running() {
       let create_time = Math.round(
         new Date(18200 * 24 * 60 * 60 * 1000).getTime() / 1000
       );

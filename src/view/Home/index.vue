@@ -114,7 +114,7 @@ export default {
           img: "https://img.yww52.com/2020/6/2020-6-27top_img.jpg",
           isTop: 1,
           categoryName: "yww",
-          introduction: "ywwwwwwwwwwwwwwwwwwwww",
+          introduction: "ywwwwwwwwwwwwwwwwwwwwwwwwwwwwssssswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
           createdTime: "2021-03-04",
           updatedTime: "2021-03-04",
         },
@@ -290,7 +290,14 @@ export default {
 }
 
 .article-card .article-info .article-introduction {
-  margin-top: 12px;
+  margin-top: 1rem;
+  line-height: 1.5;
+  font-size: 16px;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .Pagination {

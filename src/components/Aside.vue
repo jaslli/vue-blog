@@ -11,10 +11,10 @@
               rounded="lg"
             >
               <v-avatar size="110">
-                <v-img :src=$store.getters.Avatar />
+                <v-img :src="$store.getters.Avatar" />
               </v-avatar>
-              <span>{{$store.getters.name}}</span>
-              <p>{{$store.getters.desc}}</p>
+              <span>{{ $store.getters.name }}</span>
+              <p>{{ $store.getters.desc }}</p>
               <div class="social">
                 <a href="javascript:;">
                   <svg class="icon" aria-hidden="true">
@@ -52,6 +52,7 @@
               class="notice d-flex flex-column"
               :elevation="hover ? 20 : 4"
               rounded="lg"
+              ref="sticky"
             >
               <div class="notice-title">
                 <svg class="icon" aria-hidden="true">
@@ -69,6 +70,7 @@
         <v-hover>
           <template v-slot:default="{ hover }">
             <v-card
+              ref="sticky1"
               class="lovely d-flex flex-column"
               :elevation="hover ? 20 : 4"
               rounded="lg"
@@ -84,6 +86,7 @@
         <v-hover>
           <template v-slot:default="{ hover }">
             <v-card
+              ref="sticky2"
               class="website d-flex flex-column"
               :elevation="hover ? 20 : 4"
               rounded="lg"
@@ -94,7 +97,6 @@
                 </svg>
                 <span>网站资讯</span>
               </div>
-
               <ul class="website-info">
                 <li>
                   <div>文章数目:</div>
@@ -105,8 +107,12 @@
                   <span>{{ textTotal }}k</span>
                 </li>
                 <li>
+                  <div>本站访客数:</div>
+                  <span>{{ UniqueVisitor }}</span>
+                </li>
+                <li>
                   <div>本站总访问量:</div>
-                  <span>{{ peopleTotal }}</span>
+                  <span>{{ PageView }}</span>
                 </li>
               </ul>
             </v-card>
@@ -126,8 +132,37 @@ export default {
     return {
       arctilTotal: 64,
       textTotal: 161.4,
-      peopleTotal: 15014
+      UniqueVisitor: 15014,
+      PageView: 15109,
     };
+  },
+  mounted() {
+    // 监听滚动条
+    window.addEventListener("scroll", this.scroll);
+  },
+  methods: {
+    // TODO 需要优化
+    scroll() {
+        let scroll =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+        let location = this.$refs.sticky.$el.offsetHeight + this.$refs.sticky.$el.offsetTop + 20
+      if (scroll > location) {
+        this.$refs.sticky1.$el.style.position = 'fixed'
+        this.$refs.sticky1.$el.style.top = '0px'
+        this.$refs.sticky1.$el.style.left = '162px'
+        this.$refs.sticky2.$el.style.position = 'fixed'
+        this.$refs.sticky2.$el.style.top = '304.8px'
+        this.$refs.sticky2.$el.style.left = '162px'
+      } else {
+        this.$refs.sticky1.$el.style.position = ''
+        this.$refs.sticky1.$el.style.left = '110px'
+        this.$refs.sticky2.$el.style.position = ''
+        this.$refs.sticky2.$el.style.top = ''
+        this.$refs.sticky2.$el.style.left = '110px'
+      }
+    },
   },
 };
 </script>
