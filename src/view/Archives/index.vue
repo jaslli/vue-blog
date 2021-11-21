@@ -51,11 +51,11 @@
             <!-- 分页 -->
             <div class="Pagination">
               <v-pagination
-                :value="index"
-                v-model="total"
-                :length="page"
-                :total-visible="totalVisible"
-              ></v-pagination>
+              v-model="current"
+              :length="pages"
+              :total-visible="totalVisible"
+              @input="pageselect"
+            />
             </div>
           </v-card>
         </template>
@@ -66,42 +66,25 @@
 
 <script>
 import banner from "@/components/banner";
+import { pageselect } from "@/api/article.js"
 export default {
   name: "Archives",
   components: { banner },
   data() {
     return {
+      // TODO 区分年份或者月份
       // banner图
       banner: '',
       // 文章列表
-      articleList: [
-        {
-          title: "环境搭建手册",
-          img: "https://img.yww52.com/2020/6/2020-6-27top_img.jpg",
-          isTop: 1,
-          categoryName: "yww",
-          introduction: "ywwwwwwwwwwwwwwwwwwwww",
-          createdTime: "2021-03-04",
-          updatedTime: "2021-03-04",
-        },
-        {
-          title: "hello",
-          img: "https://img.yww52.com/2020/6/2020-6-27top_img.jpg",
-          isTop: 0,
-          categoryName: "yww",
-          introduction: "ywwwwwwwwwwwwwwwwwwwww",
-          createdTime: "2021-03-04",
-          updatedTime: "2021-03-04",
-        },
-      ],
-      // 文章总数
-      total: 15,
+      articleList: [],
       // 页数
-      page: 5,
+      pages: 0,
+      // 当前选定页(页码)
+      current: 1,
+      // 每页记录数
+      limit: 10,
       // 最大可见分页数
       totalVisible: 5,
-      // 当前选定页
-      index: 1,
       // 点容器的颜色
       pointcolor: [
         'red lighten-1',
@@ -127,6 +110,7 @@ export default {
   },
   created() {
     this.banner = this.$store.state.archivesBanner
+    this.pageselect()
   },
   computed: {
     // 判定文章的方向
@@ -152,6 +136,20 @@ export default {
       }
     }
   },
+  methods: {
+    // 分页查询文章
+    pageselect(current = 1) {
+      this.current = current
+      pageselect(this.current, this.limit)
+        .then(response => {
+          this.articleList = response.data.list
+          this.pages = response.data.pages
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  }
 };
 </script>
 
