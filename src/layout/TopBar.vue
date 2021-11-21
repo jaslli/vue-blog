@@ -32,7 +32,7 @@
     <v-app-bar :class="barClass" app hide-on-scroll flat>
       <v-container class="top-container" fluid>
         <!-- 副标题 -->
-        <router-link to="/" class="subtitle"> yww </router-link>
+        <router-link to="/" class="subtitle"> {{ subtitle }} </router-link>
         <!-- 导航 -->
         <ul class="top-links">
           <li>
@@ -87,12 +87,18 @@ export default {
   name: "TopBar",
   data() {
     return {
-      barClass: 'bar-top'
+      // 滚动到顶的样式
+      barClass: 'bar-top',
+      // 博客的副标题
+      subtitle: ''
     };
   },
   mounted() {
     // 监听滚动条
     window.addEventListener("scroll", this.scroll);
+  },
+  created() {
+    this.subtitle = this.$store.state.subtitle
   },
   methods: {
     scroll() {

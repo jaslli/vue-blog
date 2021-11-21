@@ -5,7 +5,7 @@
       <div class="banner animate__animated animate__pulse" :style="bannerCover()">
         <!-- 博客主标题 -->
         <div class="banner-container">
-          <h1>yww的博客</h1>
+          <h1>{{ title }}</h1>
         </div>
         <!-- 向下滚动 -->
         <div class="scroll-down" @click="scrollDown">
@@ -23,6 +23,7 @@
           <v-hover v-for="(item, index) in articleList" :key="index">
             <template v-slot:default="{ hover }">
               <v-card
+                v-if="item.isPublish"
                 :elevation="hover ? 20 : 4"
                 rounded="lg"
                 class="article-card"
@@ -33,7 +34,7 @@
                     <v-img
                       width="100%"
                       height="100%"
-                      :src="item.img"
+                      :src="item.cover"
                       class="article-hover"
                     />
                   </router-link>
@@ -49,7 +50,7 @@
                   <!-- 文章标识 -->
                   <div class="article-mark">
                     <!-- 置顶标识 -->
-                    <span class="isTop" v-if="item.isTop === 1">
+                    <span class="isTop" v-if="item.isTop">
                       <svg class="icon" aria-hidden="true">
                         <use xlink:href="#iconzhiding" />
                       </svg>
@@ -73,11 +74,12 @@
                       <svg class="icon" aria-hidden="true">
                         <use xlink:href="#iconfenlei1" />
                       </svg>
-                      {{ item.categoryName }}
+                      <!-- {{ item.categoryName }} -->
+                        暂无分类
                     </router-link>
                   </div>
                   <div class="article-introduction">
-                    {{ item.introduction }}
+                    {{ item.description }}
                   </div>
                 </div>
               </v-card>
@@ -86,11 +88,11 @@
           <!-- 分页 -->
           <div class="Pagination">
             <v-pagination
-              :value="index"
-              v-model="total"
-              :length="page"
+              v-model="current"
+              :length="pages"
               :total-visible="totalVisible"
-            ></v-pagination>
+              @input="pageselect"
+            />
           </div>
         </v-col>
         <!-- 侧边栏 -->
@@ -102,49 +104,54 @@
 
 <script>
 import Aside from "@/components/Aside";
+import { pageselect } from "@/api/article.js"
 export default {
   name: "Home",
   components: { Aside },
   data() {
     return {
+      // 博客主标题
+      title: '',
+      // banner图
+      banner: '',
       // 文章列表
-      articleList: [
-        {
-          title: "环境搭建手册",
-          img: "https://img.yww52.com/2020/6/2020-6-27top_img.jpg",
-          isTop: 1,
-          categoryName: "yww",
-          introduction: "ywwwwwwwwwwwwwwwwwwwwwwwwwwwwssssswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
-          createdTime: "2021-03-04",
-          updatedTime: "2021-03-04",
-        },
-        {
-          title: "hello",
-          img: "https://img.yww52.com/2020/6/2020-6-27top_img.jpg",
-          isTop: 0,
-          categoryName: "yww",
-          introduction: "ywwwwwwwwwwwwwwwwwwwww",
-          createdTime: "2021-03-04",
-          updatedTime: "2021-03-04",
-        },
-      ],
-      // 文章总数
-      total: 15,
+      articleList: [],
       // 页数
-      page: 5,
+      pages: 0,
+      // 当前选定页(页码)
+      current: 1,
+      // 每页记录数
+      limit: 10,
       // 最大可见分页数
-      totalVisible: 5,
-      // 当前选定页
-      index: 1,
+      totalVisible: 5
     };
   },
+  created() {
+    this.title = this.$store.state.title
+    this.banner = this.$store.state.homeBanner
+    this.pageselect()
+  },
   methods: {
+    // 主页Banner的箭头滚动
     scrollDown() {
       window.scrollTo({
         behavior: "smooth",
         top: document.documentElement.clientHeight,
       });
     },
+    // 分页查询文章
+    pageselect(current = 1) {
+      this.current = current
+      pageselect(this.current, this.limit)
+        .then(response => {
+          this.articleList = response.data.list
+          this.pages = response.data.pages
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+    }
   },
   computed: {
     // 判定文章封面的排列，偶数封面在右，奇数在左
@@ -160,7 +167,7 @@ export default {
     // 设置主页banner
     bannerCover() {
       return function () {
-        return "background-image: url(" + this.$store.getters.HomeBanner + ");";
+        return "background-image: url(" + this.banner + ");";
       };
     },
   },

@@ -42,10 +42,18 @@ import banner from "@/components/banner";
 export default {
   name: "Link",
   components: { banner },
+  data() {
+    return {
+      banner: ''
+    }
+  },
+  created() {
+    this.banner = this.$store.state.linkBanner
+  },
   computed: {
     bannerCover() {
       return function () {
-        return "background-image: url(" + this.$store.getters.LinkBanner + ");";
+        return "background-image: url(" + this.banner + ");";
       };
     },
   },

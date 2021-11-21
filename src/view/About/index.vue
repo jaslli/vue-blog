@@ -22,11 +22,19 @@
 import banner from "@/components/banner";
 export default {
   name: "About",
+  data() {
+    return {
+      banner: ''
+    }
+  },
+  created() {
+    this.banner = this.$store.state.aboutBanner
+  },
   components: { banner },
   computed: {
     bannerCover() {
       return function () {
-        return "background-image: url(" + this.$store.getters.AboutBanner + ");";
+        return "background-image: url(" + this.banner + ");";
       };
     },
   },

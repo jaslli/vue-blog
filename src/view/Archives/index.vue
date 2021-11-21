@@ -71,6 +71,8 @@ export default {
   components: { banner },
   data() {
     return {
+      // banner图
+      banner: '',
       // 文章列表
       articleList: [
         {
@@ -123,6 +125,9 @@ export default {
       ]
     };
   },
+  created() {
+    this.banner = this.$store.state.archivesBanner
+  },
   computed: {
     // 判定文章的方向
     location() {
@@ -137,7 +142,7 @@ export default {
     // 设置归档页banner
     bannerCover() {
       return function () {
-        return "background-image: url(" + this.$store.getters.ArchivesBanner + ");";
+        return "background-image: url(" + this.banner + ");";
       };
     },
     // 点容器的随机颜色

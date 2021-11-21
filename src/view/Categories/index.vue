@@ -40,13 +40,18 @@ export default {
   name: 'Categories',
   components: { banner },
   data() {
-    return {};
+    return {
+      banner: ''
+    };
+  },
+  created() {
+    this.banner = this.$store.state.categoriesBanner
   },
   computed: {
     // 设置分类页banner
     bannerCover() {
       return function () {
-        return "background-image: url(" + this.$store.getters.CategoriesBanner + ");";
+        return "background-image: url(" + this.banner + ");";
       };
     },
   },

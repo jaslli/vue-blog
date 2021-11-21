@@ -11,10 +11,10 @@
               rounded="lg"
             >
               <v-avatar size="110">
-                <v-img :src="$store.getters.Avatar" />
+                <v-img :src="avatar" />
               </v-avatar>
-              <span>{{ $store.getters.name }}</span>
-              <p>{{ $store.getters.desc }}</p>
+              <span>{{ name }}</span>
+              <p>{{ description }}</p>
               <div class="social">
                 <a href="javascript:;">
                   <svg class="icon" aria-hidden="true">
@@ -61,7 +61,7 @@
                 <span>公告</span>
               </div>
               <div class="notice-context">
-                {{ $store.getters.notice }}
+                {{ notice }}
               </div>
             </v-card>
           </template>
@@ -76,7 +76,7 @@
               rounded="lg"
             >
               <v-img
-                src="https://img.yww52.com/lovely.jpg"
+                :src="lovely"
                 class="lovely-img"
               />
             </v-card>
@@ -130,9 +130,23 @@ export default {
   name: "Aside",
   data() {
     return {
+      // 博主名称
+      name: '',
+      // 博主头像
+      avatar: '',
+      // 博主简介
+      description: '',
+      // 公告
+      notice: '',
+      // 小姐姐展示图
+      lovely: '',
+      // 文章数目
       arctilTotal: 64,
+      // 本站总字数
       textTotal: 161.4,
+      // 本站访客数
       UniqueVisitor: 15014,
+      // 本站总访问量
       PageView: 15109,
     };
   },
@@ -140,8 +154,12 @@ export default {
     // 监听滚动条
     window.addEventListener("scroll", this.scroll);
   },
+  created() {
+    this.init()
+  },
   methods: {
     // TODO 需要优化
+    // 实现侧边栏的粘性布局
     scroll() {
         let scroll =
         window.pageYOffset ||
@@ -163,6 +181,14 @@ export default {
         this.$refs.sticky2.$el.style.left = '110px'
       }
     },
+    init() {
+      let that = this.$store.state
+      this.name = that.name
+      this.avatar = that.avatar
+      this.description = that.description
+      this.notice = that.notice
+      this.lovely = that.lovely
+    }
   },
 };
 </script>
