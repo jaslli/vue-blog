@@ -127,8 +127,7 @@ export default {
     };
   },
   created() {
-    this.title = this.$store.state.title
-    this.banner = this.$store.state.homeBanner
+    this.init()
     this.pageselect()
   },
   methods: {
@@ -138,6 +137,17 @@ export default {
         behavior: "smooth",
         top: document.documentElement.clientHeight,
       });
+    },
+    init() {
+      if (this.$store.state.title && this.$store.state.homeBanner) {
+        this.title = this.$store.state.title
+        this.banner = this.$store.state.homeBanner
+      } else {
+        const that = this;
+        setTimeout(function () {
+          that.init()
+      }, 500);
+      }
     },
     // 分页查询文章
     pageselect(current = 1) {

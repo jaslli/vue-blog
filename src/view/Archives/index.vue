@@ -10,6 +10,7 @@
             rounded="lg"
             class="timeline-container"
           >
+            <div class="title">你已经写了{{ total }}篇文章，请继续加油。</div>
             <!-- 时间轴 -->
             <v-timeline class="timeline">
               <!-- 时间轴标头 -->
@@ -29,7 +30,7 @@
                       :style="location(index)"
                     >
                       <router-link to="/archives">
-                        <v-img :src="article.img" class="article-img" />
+                        <v-img :src="article.cover" class="article-img" />
                       </router-link>
                       <div class="article-context">
                         <!-- 发表时间 -->
@@ -51,11 +52,11 @@
             <!-- 分页 -->
             <div class="Pagination">
               <v-pagination
-              v-model="current"
-              :length="pages"
-              :total-visible="totalVisible"
-              @input="pageselect"
-            />
+                v-model="current"
+                :length="pages"
+                :total-visible="totalVisible"
+                @input="pageselect"
+              />
             </div>
           </v-card>
         </template>
@@ -66,7 +67,7 @@
 
 <script>
 import banner from "@/components/banner";
-import { pageselect } from "@/api/article.js"
+import { pageselect } from "@/api/article.js";
 export default {
   name: "Archives",
   components: { banner },
@@ -74,9 +75,11 @@ export default {
     return {
       // TODO 区分年份或者月份
       // banner图
-      banner: '',
+      banner: "",
       // 文章列表
       articleList: [],
+      // 文章总数
+      total: 0,
       // 页数
       pages: 0,
       // 当前选定页(页码)
@@ -87,30 +90,30 @@ export default {
       totalVisible: 5,
       // 点容器的颜色
       pointcolor: [
-        'red lighten-1',
-        'pink lighten-1',
-        'purple lighten-1',
-        'deep-purple lighten-1',
-        'indigo lighten-1',
-        'blue lighten-1',
-        'green lighten-1',
-        'light-blue lighten-1',
-        'cyan lighten-1',
-        'teal lighten-1',
-        'light-green lighten-1',
-        'lime lighten-1',
-        'yellow lighten-1',
-        'amber lighten-1',
-        'orange lighten-1',
-        'deep-orange lighten-1',
-        'blue-grey lighten-1',
-        'grey lighten-1'
-      ]
+        "red lighten-1",
+        "pink lighten-1",
+        "purple lighten-1",
+        "deep-purple lighten-1",
+        "indigo lighten-1",
+        "blue lighten-1",
+        "green lighten-1",
+        "light-blue lighten-1",
+        "cyan lighten-1",
+        "teal lighten-1",
+        "light-green lighten-1",
+        "lime lighten-1",
+        "yellow lighten-1",
+        "amber lighten-1",
+        "orange lighten-1",
+        "deep-orange lighten-1",
+        "blue-grey lighten-1",
+        "grey lighten-1",
+      ],
     };
   },
   created() {
-    this.banner = this.$store.state.archivesBanner
-    this.pageselect()
+    this.init();
+    this.pageselect();
   },
   computed: {
     // 判定文章的方向
@@ -131,25 +134,38 @@ export default {
     },
     // 点容器的随机颜色
     PointColor() {
-      return function() {
-        return this.pointcolor[Math.floor(Math.random()*this.pointcolor.length)]
-      }
-    }
+      return function () {
+        return this.pointcolor[
+          Math.floor(Math.random() * this.pointcolor.length)
+        ];
+      };
+    },
   },
   methods: {
     // 分页查询文章
     pageselect(current = 1) {
-      this.current = current
+      this.current = current;
       pageselect(this.current, this.limit)
-        .then(response => {
-          this.articleList = response.data.list
-          this.pages = response.data.pages
+        .then((response) => {
+          this.articleList = response.data.list;
+          this.pages = response.data.pages;
+          this.total = response.data.total;
         })
-        .catch(error => {
-          console.log(error)
-        })
-    }
-  }
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    init() {
+      if (this.$store.state.archivesBanner) {
+        this.banner = this.$store.state.archivesBanner;
+      } else {
+        const that = this;
+        setTimeout(function () {
+          that.init();
+        }, 500);
+      }
+    },
+  },
 };
 </script>
 
@@ -160,6 +176,11 @@ export default {
   padding: 50px 35px;
 }
 
+.timeline-container .title {
+  margin-bottom: 10px;
+}
+
+
 .timeline-container .timeline .timeline-item {
   display: flex;
   width: 350px;
@@ -169,6 +190,7 @@ export default {
 
 .timeline-container .timeline .timeline-item .article-img {
   width: 120px;
+  height: 100%;
   transition: all 0.6s;
 }
 

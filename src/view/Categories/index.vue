@@ -45,7 +45,7 @@ export default {
     };
   },
   created() {
-    this.banner = this.$store.state.categoriesBanner
+    this.init()
   },
   computed: {
     // 设置分类页banner
@@ -55,6 +55,18 @@ export default {
       };
     },
   },
+  methods: {
+    init() {
+      if (this.$store.state.categoriesBanner) {
+        this.banner = this.$store.state.categoriesBanner
+      } else {
+        const that = this;
+        setTimeout(function () {
+          that.init()
+      }, 500);
+      }
+    },
+  }
 };
 </script>
 

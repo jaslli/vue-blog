@@ -28,7 +28,7 @@ export default {
     }
   },
   created() {
-    this.banner = this.$store.state.aboutBanner
+    this.init()
   },
   components: { banner },
   computed: {
@@ -38,6 +38,18 @@ export default {
       };
     },
   },
+  methods: {
+    init() {
+      if (this.$store.state.aboutBanner) {
+        this.banner = this.$store.state.aboutBanner
+      } else {
+        const that = this;
+        setTimeout(function () {
+          that.init()
+      }, 500);
+      }
+    },
+  }
 };
 </script>
 

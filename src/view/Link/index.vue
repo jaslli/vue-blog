@@ -44,17 +44,29 @@ export default {
   components: { banner },
   data() {
     return {
-      banner: ''
-    }
+      banner: "",
+    };
   },
   created() {
-    this.banner = this.$store.state.linkBanner
+    this.init()
   },
   computed: {
     bannerCover() {
       return function () {
         return "background-image: url(" + this.banner + ");";
       };
+    },
+  },
+  methods: {
+    init() {
+      if (this.$store.state.linkBanner) {
+        this.banner = this.$store.state.linkBanner;
+      } else {
+        const that = this;
+        setTimeout(function () {
+          that.init();
+        }, 500);
+      }
     },
   },
 };

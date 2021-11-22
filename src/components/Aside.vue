@@ -75,10 +75,7 @@
               :elevation="hover ? 20 : 4"
               rounded="lg"
             >
-              <v-img
-                :src="lovely"
-                class="lovely-img"
-              />
+              <v-img :src="lovely" class="lovely-img" />
             </v-card>
           </template>
         </v-hover>
@@ -131,15 +128,15 @@ export default {
   data() {
     return {
       // 博主名称
-      name: '',
+      name: "",
       // 博主头像
-      avatar: '',
+      avatar: "",
       // 博主简介
-      description: '',
+      description: "",
       // 公告
-      notice: '',
+      notice: "",
       // 小姐姐展示图
-      lovely: '',
+      lovely: "",
       // 文章数目
       arctilTotal: 64,
       // 本站总字数
@@ -155,40 +152,50 @@ export default {
     window.addEventListener("scroll", this.scroll);
   },
   created() {
-    this.init()
+    this.init();
   },
   methods: {
     // TODO 需要优化
     // 实现侧边栏的粘性布局
     scroll() {
-        let scroll =
+      let scroll =
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-        let location = this.$refs.sticky.$el.offsetHeight + this.$refs.sticky.$el.offsetTop + 20
+      let location =
+        this.$refs.sticky.$el.offsetHeight +
+        this.$refs.sticky.$el.offsetTop +
+        20;
       if (scroll > location) {
-        this.$refs.sticky1.$el.style.position = 'fixed'
-        this.$refs.sticky1.$el.style.top = '0px'
-        this.$refs.sticky1.$el.style.left = '162px'
-        this.$refs.sticky2.$el.style.position = 'fixed'
-        this.$refs.sticky2.$el.style.top = '304.8px'
-        this.$refs.sticky2.$el.style.left = '162px'
+        this.$refs.sticky1.$el.style.position = "fixed";
+        this.$refs.sticky1.$el.style.top = "0px";
+        this.$refs.sticky1.$el.style.left = "162px";
+        this.$refs.sticky2.$el.style.position = "fixed";
+        this.$refs.sticky2.$el.style.top = "304.8px";
+        this.$refs.sticky2.$el.style.left = "162px";
       } else {
-        this.$refs.sticky1.$el.style.position = ''
-        this.$refs.sticky1.$el.style.left = '110px'
-        this.$refs.sticky2.$el.style.position = ''
-        this.$refs.sticky2.$el.style.top = ''
-        this.$refs.sticky2.$el.style.left = '110px'
+        this.$refs.sticky1.$el.style.position = "";
+        this.$refs.sticky1.$el.style.left = "110px";
+        this.$refs.sticky2.$el.style.position = "";
+        this.$refs.sticky2.$el.style.top = "";
+        this.$refs.sticky2.$el.style.left = "110px";
       }
     },
     init() {
-      let that = this.$store.state
-      this.name = that.name
-      this.avatar = that.avatar
-      this.description = that.description
-      this.notice = that.notice
-      this.lovely = that.lovely
-    }
+      if (this.$store.state.name) {
+        let that = this.$store.state;
+        this.name = that.name;
+        this.avatar = that.avatar;
+        this.description = that.description;
+        this.notice = that.notice;
+        this.lovely = that.lovely;
+      } else {
+        const that = this;
+        setTimeout(function () {
+          that.init();
+        }, 500);
+      }
+    },
   },
 };
 </script>
