@@ -23,7 +23,7 @@
           <v-hover v-for="(item, index) in articleList" :key="index">
             <template v-slot:default="{ hover }">
               <v-card
-                v-if="item.isPublish"
+                v-if="item.publish"
                 :elevation="hover ? 20 : 4"
                 rounded="lg"
                 class="article-card"
@@ -50,7 +50,7 @@
                   <!-- 文章标识 -->
                   <div class="article-mark">
                     <!-- 置顶标识 -->
-                    <span class="isTop" v-if="item.isTop">
+                    <span class="isTop" v-if="item.top">
                       <svg class="icon" aria-hidden="true">
                         <use xlink:href="#iconzhiding" />
                       </svg>
@@ -61,13 +61,13 @@
                     <svg class="icon" aria-hidden="true">
                       <use xlink:href="#iconrili" />
                     </svg>
-                    发表于 {{ item.createdTime }}
+                    发表于 {{ item.createTime }}
                     <span class="separator">|</span>
                     <!-- 更新时间 -->
                     <svg class="icon" aria-hidden="true">
                       <use xlink:href="#icongengxinriqitishi" />
                     </svg>
-                    更新于 {{ item.updatedTime }}
+                    更新于 {{ item.updateTime }}
                     <span class="separator">|</span>
                     <!-- 文章分类 -->
                     <router-link to="/">

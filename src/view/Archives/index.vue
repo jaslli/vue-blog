@@ -38,7 +38,7 @@
                           <svg class="icon" aria-hidden="true">
                             <use xlink:href="#iconrili" />
                           </svg>
-                          {{ article.createdTime }}
+                          {{ article.createTime }}
                         </div>
                         <router-link to="/archives" class="article-title">
                           {{ article.title }}

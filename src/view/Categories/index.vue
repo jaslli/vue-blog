@@ -10,21 +10,24 @@
             rounded="lg"
             class="categories-container"
           >
+          <div class="title">分类 - {{total}}</div>
             <ul class="categories-list">
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
-              </li>
-              <li>
-                <router-link to="/categories"> ssssss </router-link>
+              <li v-for="category in categoryList" :key="category.id" class="categories">
+                <router-link to="/categories">
+                  {{ category.name + "    (" + category.count + ")" }}
+                </router-link>
+                <!-- 有子分类的情况 -->
+                <ul v-if="category.children" class="categories-child-list">
+                  <li
+                    class="categories-child"
+                    v-for="child in category.children"
+                    :key="child.id"
+                  >
+                    <router-link to="/categories">
+                      {{ child.name + "    (" + child.count +")" }}
+                    </router-link>
+                  </li>
+                </ul>
               </li>
             </ul>
           </v-card>
@@ -36,16 +39,23 @@
 
 <script>
 import banner from "@/components/banner";
+import { getList } from "@/api/category"
 export default {
-  name: 'Categories',
+  name: "Categories",
   components: { banner },
   data() {
     return {
-      banner: ''
+      // banner图
+      banner: "",
+      // 分类数据列表
+      categoryList: [],
+      // 分类总数
+      total: 0
     };
   },
   created() {
-    this.init()
+    this.init();
+    this.getList();
   },
   computed: {
     // 设置分类页banner
@@ -58,20 +68,29 @@ export default {
   methods: {
     init() {
       if (this.$store.state.categoriesBanner) {
-        this.banner = this.$store.state.categoriesBanner
+        this.banner = this.$store.state.categoriesBanner;
       } else {
         const that = this;
         setTimeout(function () {
-          that.init()
-      }, 500);
+          that.init();
+        }, 500);
       }
     },
-  }
+    getList() {
+      getList().then(response => {
+        console.log(response.data)
+        this.categoryList = response.data.list
+        this.total = response.data.total
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+  },
 };
 </script>
 
 <style scoped>
-
 .categories-container {
   width: 900px;
   min-height: 100px;
@@ -79,16 +98,25 @@ export default {
   padding: 50px 35px;
 }
 
+.categories-container .title {
+  font-size: 2.3em !important;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
 .categories-container .categories-list {
   list-style: none;
   margin: 0 2rem;
 }
 
-.categories-container .categories-list li {
-  margin-bottom: 10px;
+.categories-container .categories-list .categories {
+  margin-bottom: 15px;
 }
 
-.categories-container .categories-list li:before {
+.categories-container .categories-list .categories:before,
+.categories-child:before
+{
   content: "";
   display: inline-block;
   width: 12px;
@@ -101,6 +129,16 @@ export default {
   transition-duration: 0.3s;
 }
 
+.categories-container .categories-child-list {
+  list-style: none;
+  margin: 10px 0;
+}
+
+.categories-child-list .categories-child {
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
 .categories-container .categories-list li:hover:before {
   border: 0.2rem solid #ff7242;
 }
@@ -110,4 +148,5 @@ export default {
   color: black !important;
   text-decoration: none;
 }
+
 </style>
