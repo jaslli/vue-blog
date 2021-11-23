@@ -10,22 +10,30 @@
             rounded="lg"
             class="link-container"
           >
-            <div class="link-group">
+            <div
+              v-for="linkgroup in linkList"
+              :key="linkgroup.id"
+              class="link-group"
+            >
               <!-- 分组名称 -->
-              <div class="link-group-title">闪闪发光</div>
+              <div class="link-group-title">{{ linkgroup.name }}</div>
               <!-- 分组介绍 -->
-              <div class="link-group-introduction">这些可能就是大佬吧</div>
+              <div class="link-group-introduction">
+                {{ linkgroup.description }}
+              </div>
               <!-- 分组成员 -->
               <div class="link-list d-flex flex-wrap">
-                <div class="link-item" v-for="(item, index) in 8" :key="index">
-                  <a href="javascript:;">
+                <div
+                  class="link-item"
+                  v-for="link in linkgroup.children"
+                  :key="link.id"
+                >
+                  <a :href="link.address">
                     <v-avatar size="60" class="link-item-img">
-                      <img src="https://img.yww52.com/avatar.jpg" alt="" />
+                      <img :src="link.avatar" alt="" />
                     </v-avatar>
-                    <span class="link-item-name">yww</span>
-                    <span class="link-item-desc"
-                      >hello worldssssssssssssss</span
-                    >
+                    <span class="link-item-name">{{ link.name }}</span>
+                    <span class="link-item-desc">{{ link.description }}</span>
                   </a>
                 </div>
               </div>
@@ -39,16 +47,20 @@
 
 <script>
 import banner from "@/components/banner";
+import { getList } from "@/api/link";
 export default {
   name: "Link",
   components: { banner },
   data() {
     return {
       banner: "",
+      // 友链列表
+      linkList: [],
     };
   },
   created() {
-    this.init()
+    this.init();
+    this.getList();
   },
   computed: {
     bannerCover() {
@@ -67,6 +79,11 @@ export default {
           that.init();
         }, 500);
       }
+    },
+    getList() {
+      getList().then((response) => {
+        this.linkList = response.data;
+      });
     },
   },
 };
