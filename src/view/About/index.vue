@@ -11,6 +11,7 @@
             class="about-container"
           >
             <div>正在设计开发</div>
+            <button @click="alert">Random Message</button>
           </v-card>
         </template>
       </v-hover>
@@ -24,7 +25,12 @@ export default {
   name: "About",
   data() {
     return {
-      banner: ''
+      banner: '',
+      messages: [
+        { message: '恭喜你，这是一条成功消息ssssssssssssssssssssssssssssssssss', type: 'success' },
+        { message: '警告哦，这是一条警告消息', type: 'warning' },
+        { message: '错了哦，这是一条错误消息', type: 'error' }
+      ]
     }
   },
   created() {
@@ -49,6 +55,14 @@ export default {
       }, 500);
       }
     },
+    alert() {
+      const index = Math.round(Math.random() * 2)
+      const message = this.messages[index]
+      this.$message({
+        ...message,
+        duration: 5000
+      })
+    }
   }
 };
 </script>

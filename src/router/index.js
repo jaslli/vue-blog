@@ -4,7 +4,8 @@ import Layout from '@/layout'
 Vue.use(VueRouter)
 
 export default new VueRouter({
-    routes: [{
+    routes: [
+        {
         title: '整体布局',
         path: '/',
         component: Layout,
@@ -33,7 +34,13 @@ export default new VueRouter({
                 title: '关于',
                 path: '/about',
                 component: resolve => require(['@/view/About'], resolve),
-            },
-        ]
-    }]
+            }
+        ],
+    },
+    {
+        title: 'text',
+        path: '/text',
+        component: resolve => require(['@/components/Pagination'], resolve),
+    }
+]
 });

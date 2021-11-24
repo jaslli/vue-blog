@@ -56,6 +56,8 @@
                 :length="pages"
                 :total-visible="totalVisible"
                 @input="pageselect"
+                @next="scroll"
+                @previous="scroll"
               />
             </div>
           </v-card>
@@ -142,6 +144,13 @@ export default {
     },
   },
   methods: {
+    // 滚动到Banner图下端
+    scroll() {
+      window.scrollTo({
+        behavior: "smooth",
+        top: 200,
+      });
+    },
     // 分页查询文章
     pageselect(current = 1) {
       this.current = current;
@@ -179,7 +188,6 @@ export default {
 .timeline-container .title {
   margin-bottom: 10px;
 }
-
 
 .timeline-container .timeline .timeline-item {
   display: flex;

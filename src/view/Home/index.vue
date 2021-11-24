@@ -8,7 +8,7 @@
           <h1>{{ title }}</h1>
         </div>
         <!-- 向下滚动 -->
-        <div class="scroll-down" @click="scrollDown">
+        <div class="scroll-down" @click="scroll()">
           <v-icon color="#fff" class="scroll-down-effects">
             mdi-chevron-down
           </v-icon>
@@ -123,7 +123,7 @@ export default {
       // 每页记录数
       limit: 10,
       // 最大可见分页数
-      totalVisible: 5
+      totalVisible: 5,
     };
   },
   created() {
@@ -131,8 +131,8 @@ export default {
     this.pageselect()
   },
   methods: {
-    // 主页Banner的箭头滚动
-    scrollDown() {
+    // 滚动到Banner图下端
+    scroll() {
       window.scrollTo({
         behavior: "smooth",
         top: document.documentElement.clientHeight,
@@ -156,6 +156,7 @@ export default {
         .then(response => {
           this.articleList = response.data.list
           this.pages = response.data.pages
+          this.scroll();
         })
         .catch(error => {
           console.log(error)

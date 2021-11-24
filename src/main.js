@@ -4,7 +4,9 @@ import vuetify from './plugins/vuetify'
 import router from '@/router'
 import store from './store/index.js'
 import 'animate.css';
+import Message from '@/components/Message'
 
+Vue.use(Message)
 Vue.config.productionTip = false
 
 new Vue({
