@@ -7,10 +7,27 @@
 </template>
 
 <script>
+
+
+/** 
+ * this.$message(options)
+ * 参数： 
+ *  1. message 消息内容
+ *  2. type 类型
+ *      - success
+ *      - warning
+ *      - error
+ *  3. duration 存在时间
+ * 
+*/
+
+
 export default {
   data() {
     return {
+      // 消息编号
       id: 0,
+      // 消息列表
       messages: []
     }
   },
@@ -20,9 +37,9 @@ export default {
       const id = this.id++
       const layer = { ...options, id }
       this.messages.push(layer)
-      // layer.timer = setTimeout(() => {
-      //   this.remove(layer)
-      // }, options.duration)
+      layer.timer = setTimeout(() => {
+        this.remove(layer)
+      }, options.duration)
     },
     // 移除一个消息
     remove(layer) {
@@ -41,10 +58,11 @@ export default {
   left: 50%;
   transform: translateX(-50%);
 }
+
 .messages > div {
   margin: 8px;
   width: 400px;
-  height: px;
+  height: 50px;
   line-height: 50px;
   text-align: center;
   border: 1px solid;
@@ -54,6 +72,7 @@ export default {
   white-space: nowrap;
   box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
 }
+
 .success {
   background-color: #f0f9eb;
   border-color: #e1f3d8;

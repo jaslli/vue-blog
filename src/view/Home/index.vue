@@ -2,20 +2,23 @@
   <div>
     <!-- 主页banner -->
     <v-banner height="100vh" shaped>
-      <div class="banner animate__animated animate__pulse" :style="bannerCover()">
+      <div
+        class="banner animate__animated animate__pulse"
+        :style="bannerCover()"
+      >
         <!-- 博客主标题 -->
         <div class="banner-container">
           <h1>{{ title }}</h1>
         </div>
         <!-- 向下滚动 -->
-        <div class="scroll-down" @click="scroll()">
+        <div class="scroll-down" @click="$vuetify.goTo($refs.content)">
           <v-icon color="#fff" class="scroll-down-effects">
             mdi-chevron-down
           </v-icon>
         </div>
       </div>
     </v-banner>
-    <v-container fluid>
+    <v-container fluid ref="content">
       <v-row>
         <!-- 文章列表 -->
         <v-col cols="12" md="9" order-md="2">
@@ -23,14 +26,13 @@
           <v-hover v-for="(item, index) in articleList" :key="index">
             <template v-slot:default="{ hover }">
               <v-card
-                v-if="item.publish"
                 :elevation="hover ? 20 : 4"
                 rounded="lg"
                 class="article-card"
               >
                 <!-- 文章封面 -->
                 <div :class="location(index)">
-                  <router-link to="/">
+                  <router-link :to="'/article/' + item.id">
                     <v-img
                       width="100%"
                       height="100%"
@@ -70,12 +72,11 @@
                     更新于 {{ item.updateTime }}
                     <span class="separator">|</span>
                     <!-- 文章分类 -->
-                    <router-link to="/">
-                      <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#iconfenlei1" />
-                      </svg>
-                      <!-- {{ item.categoryName }} -->
-                        暂无分类
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#iconfenlei1" />
+                    </svg>
+                    <router-link :to="'/category/' + item.categoryId">
+                      {{ item.categoryName }}
                     </router-link>
                   </div>
                   <div class="article-introduction">
@@ -104,16 +105,16 @@
 
 <script>
 import Aside from "@/components/Aside";
-import { pageselect } from "@/api/article.js"
+import { pageselect } from "@/api/article.js";
 export default {
   name: "Home",
   components: { Aside },
   data() {
     return {
       // 博客主标题
-      title: '',
+      title: "",
       // banner图
-      banner: '',
+      banner: "",
       // 文章列表
       articleList: [],
       // 页数
@@ -124,44 +125,43 @@ export default {
       limit: 10,
       // 最大可见分页数
       totalVisible: 5,
+      // 是否是首次进入
+      first: true,
     };
   },
   created() {
-    this.init()
-    this.pageselect()
+    this.init();
+    this.pageselect();
   },
   methods: {
-    // 滚动到Banner图下端
-    scroll() {
-      window.scrollTo({
-        behavior: "smooth",
-        top: document.documentElement.clientHeight,
-      });
-    },
     init() {
       if (this.$store.state.title && this.$store.state.homeBanner) {
-        this.title = this.$store.state.title
-        this.banner = this.$store.state.homeBanner
+        this.title = this.$store.state.title;
+        this.banner = this.$store.state.homeBanner;
       } else {
         const that = this;
         setTimeout(function () {
-          that.init()
-      }, 500);
+          that.init();
+        }, 500);
       }
     },
     // 分页查询文章
     pageselect(current = 1) {
-      this.current = current
+      this.current = current;
       pageselect(this.current, this.limit)
-        .then(response => {
-          this.articleList = response.data.list
-          this.pages = response.data.pages
-          this.scroll();
+        .then((response) => {
+          this.articleList = response.data.list;
+          this.pages = response.data.pages;
         })
-        .catch(error => {
-          console.log(error)
-        })
-    }
+        .catch((error) => {
+          console.log(error);
+        });
+      if (this.first) {
+        this.first = false;
+        return;
+      }
+      this.$vuetify.goTo(this.$refs.content);
+    },
   },
   computed: {
     // 判定文章封面的排列，偶数封面在右，奇数在左
@@ -293,6 +293,11 @@ export default {
   margin-bottom: 6px;
 }
 
+.article-card .article-info .article-title a {
+  color: black;
+  text-decoration: none;
+}
+
 .article-card .article-info .article-mark {
   font-size: 12.6px;
 }
@@ -305,6 +310,16 @@ export default {
   margin: 0 6px;
   color: #909090;
 }
+
+.article-card .article-info .article-mark a {
+  color: black;
+  text-decoration: none;
+}
+
+.article-card .article-info .article-mark a:hover {
+  color: #4DAAE8
+}
+
 
 .article-card .article-info .article-introduction {
   margin-top: 1rem;
@@ -322,10 +337,11 @@ export default {
 }
 
 /* 超链接样式 */
-.v-application a {
+/* .v-application a {
   color: black !important;
   text-decoration: none;
-}
+} */
+
 
 .icon {
   width: 1.3em;

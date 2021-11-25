@@ -1,9 +1,10 @@
 <template>
   <!-- 其他页面的banner -->
   <v-banner height="350px" shaped>
-    <div class="banner animate__animated animate__pulse" :style="bannerCover">
+    <div class="banner animate__animated animate__pulse" :style="banner()">
       <div class="banner-container">
         <h1>{{ title }}</h1>
+        <slot></slot>
       </div>
     </div>
   </v-banner>
@@ -22,6 +23,13 @@ export default {
       require: true,
     },
   },
+  computed: {
+    banner() {
+      return function () {
+        return "background-image: url(" + this.bannerCover + ");";
+      };
+    },
+  }
 };
 </script>
 
@@ -42,5 +50,10 @@ export default {
 .banner .banner-container {
   color: #d81e06;
   margin-top: 200px;
+}
+
+.v-application a {
+  color: black !important;
+  text-decoration: none;
 }
 </style>

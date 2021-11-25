@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 归档页banner -->
-    <banner title="归档页" :bannerCover="bannerCover()" />
+    <banner :title="categoryName" :bannerCover="bannerCover()" />
     <v-container fluid>
       <v-hover>
         <template v-slot:default="{ hover }">
@@ -10,7 +10,9 @@
             rounded="lg"
             class="timeline-container"
           >
-            <div class="title">你已经写了{{ total }}篇文章，请继续加油。</div>
+            <div class="title">
+              {{ categoryName }}，这个分类有{{ total }}篇文章。
+            </div>
             <!-- 时间轴 -->
             <v-timeline class="timeline">
               <!-- 时间轴标头 -->
@@ -68,8 +70,9 @@
 <script>
 import banner from "@/components/banner";
 import { page } from "@/api/article.js";
+import { getById } from "@/api/category.js";
 export default {
-  name: "Archives",
+  name: "CategoryList.vue",
   components: { banner },
   data() {
     return {
@@ -78,6 +81,7 @@ export default {
       banner: "",
       // 文章列表
       articleList: [],
+      categoryName: "",
       // 文章总数
       total: 0,
       // 页数
@@ -115,6 +119,7 @@ export default {
   },
   created() {
     this.init();
+    this.getById();
     this.pageselect();
   },
   computed: {
@@ -147,7 +152,7 @@ export default {
     // 分页查询文章
     pageselect(current = 1) {
       this.current = current;
-      page(this.current, this.limit, null)
+      page(this.current, this.limit, this.$route.params.categoryId)
         .then((response) => {
           this.articleList = response.data.arList;
           this.pages = response.data.pages;
@@ -159,12 +164,32 @@ export default {
           this.$vuetify.goTo(150);
         })
         .catch((error) => {
-          console.log(error);
+          this.$message({
+            message: error,
+            type: "error",
+            duration: 2000,
+          });
         });
     },
+    // 根据分类ID查询分类信息
+    getById() {
+      getById(this.$route.params.categoryId)
+        .then((response) => {
+          this.categoryName = response.data.name;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$message({
+            message: error,
+            type: "error",
+            duration: 2000,
+          });
+        });
+    },
+    // banner初始化
     init() {
-      if (this.$store.state.archivesBanner) {
-        this.banner = this.$store.state.archivesBanner;
+      if (this.$store.state.categoriesBanner) {
+        this.banner = this.$store.state.categoriesBanner;
       } else {
         const that = this;
         setTimeout(function () {

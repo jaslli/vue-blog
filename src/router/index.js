@@ -16,6 +16,11 @@ export default new VueRouter({
                 component: resolve => require(['@/view/Home'], resolve),
             },
             {
+                title: '文章页',
+                path: '/article/:articleId',
+                component: resolve => require(['@/view/Article'], resolve),
+            },
+            {
                 title: '归档',
                 path: '/archives',
                 component: resolve => require(['@/view/Archives'], resolve),
@@ -23,7 +28,12 @@ export default new VueRouter({
             {
                 title: '分类',
                 path: '/categories',
-                component: resolve => require(['@/view/Categories'], resolve),
+                component: resolve => require(['@/view/Categories/index'], resolve),
+            },
+            {
+                title: '文章页',
+                path: '/category/:categoryId',
+                component: resolve => require(['@/view/Categories/CategoryList'], resolve),
             },
             {
                 title: '友链',

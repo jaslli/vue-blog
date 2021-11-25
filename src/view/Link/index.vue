@@ -65,7 +65,7 @@ export default {
   computed: {
     bannerCover() {
       return function () {
-        return "background-image: url(" + this.banner + ");";
+        return this.banner;
       };
     },
   },

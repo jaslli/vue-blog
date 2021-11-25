@@ -148,11 +148,13 @@ export default {
     };
   },
   mounted() {
-    // 监听滚动条
     window.addEventListener("scroll", this.scroll);
   },
   created() {
     this.init();
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.scroll);
   },
   methods: {
     // TODO 需要优化

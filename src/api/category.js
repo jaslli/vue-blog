@@ -9,3 +9,15 @@ export function getList() {
         method: 'get',
     })
 }
+
+
+
+/**
+ * 根据ID获取分类数据
+ */
+export function getById(id) {
+    return request({
+        url: `/category/getById/${id}`,
+        method: 'get',
+    })
+}

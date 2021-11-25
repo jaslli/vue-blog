@@ -13,7 +13,7 @@
           <div class="title">分类 - {{total}}</div>
             <ul class="categories-list">
               <li v-for="category in categoryList" :key="category.id" class="categories">
-                <router-link to="/categories">
+                <router-link :to="'/category/' + category.id">
                   {{ category.name + "    (" + category.count + ")" }}
                 </router-link>
                 <!-- 有子分类的情况 -->
@@ -23,7 +23,7 @@
                     v-for="child in category.children"
                     :key="child.id"
                   >
-                    <router-link to="/categories">
+                    <router-link :to="'/category/' + child.id">
                       {{ child.name + "    (" + child.count +")" }}
                     </router-link>
                   </li>
@@ -61,7 +61,7 @@ export default {
     // 设置分类页banner
     bannerCover() {
       return function () {
-        return "background-image: url(" + this.banner + ");";
+        return this.banner;
       };
     },
   },
@@ -78,12 +78,15 @@ export default {
     },
     getList() {
       getList().then(response => {
-        console.log(response.data)
         this.categoryList = response.data.list
         this.total = response.data.total
       })
       .catch(error => {
-        console.log(error)
+        this.$message({
+          message: error,
+          type: 'error',
+          duration: 2000
+        })
       })
     }
   },
