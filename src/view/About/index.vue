@@ -8,7 +8,7 @@
           <v-card
             :elevation="hover ? 20 : 4"
             rounded="lg"
-            class="about-container"
+            class="about-container animate__animated animate__pulse"
           >
             <div>正在设计开发</div>
           </v-card>

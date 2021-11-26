@@ -33,9 +33,13 @@
             <v-card
               :elevation="hover ? 20 : 4"
               rounded="lg"
-              class="article-container"
+              class="article-container animate__animated animate__pulse"
             >
-              <div>{{ article.content }}</div>
+              <VueShowdown
+                :markdown="content"
+                :options="option"
+                class="markdown-body"
+              />
             </v-card>
           </template>
         </v-hover>
@@ -46,19 +50,28 @@
 
 <script>
 import banner from "@/components/banner";
-import { getById } from "@/api/article";
+import "@/assets/markdown.css"
+import { getById, getContent } from "@/api/article";
 export default {
   name: "About",
+  components: { banner },
   data() {
     return {
       banner: "",
       article: {},
+      content: "",
+      // VueShowdown
+      option: {
+        emoji: true,
+        omitExtraWLInCodeBlocks: true,
+        simpleLineBreaks: true
+      }
     };
   },
   created() {
-    this.init();
+    this.getById();
+    this.getContent();
   },
-  components: { banner },
   computed: {
     bannerCover() {
       return function () {
@@ -67,18 +80,25 @@ export default {
     },
   },
   methods: {
-    init() {
+    // 获取文章数据
+    getById() {
       getById(this.$route.params.articleId)
         .then((response) => {
           this.article = response.data;
           this.banner = response.data.cover;
         })
         .catch((error) => {
-          this.$message({
-            message: error,
-            type: "error",
-            duration: 2000,
-          });
+          console.log(error);
+        });
+    },
+    // 获取文章内容
+    getContent() {
+      getContent(this.$route.params.articleId)
+        .then((response) => {
+          this.content = response.data.content;
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
   },

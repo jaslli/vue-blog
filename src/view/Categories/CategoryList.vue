@@ -28,7 +28,7 @@
                     <v-card
                       :elevation="hover ? 20 : 4"
                       rounded="lg"
-                      class="timeline-item"
+                      class="timeline-item  animate__animated animate__pulse"
                       :style="location(index)"
                     >
                       <router-link :to="'/article/' + article.id">

@@ -28,7 +28,7 @@
               <v-card
                 :elevation="hover ? 20 : 4"
                 rounded="lg"
-                class="article-card"
+                class="article-card animate__animated animate__pulse"
               >
                 <!-- 文章封面 -->
                 <div :class="location(index)">

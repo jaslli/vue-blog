@@ -6,7 +6,7 @@
         <v-hover>
           <template v-slot:default="{ hover }">
             <v-card
-              class="author d-flex flex-column align-center justify-center"
+              class="author d-flex flex-column align-center justify-center animate__animated animate__pulse"
               :elevation="hover ? 20 : 4"
               rounded="lg"
             >
@@ -49,7 +49,7 @@
         <v-hover>
           <template v-slot:default="{ hover }">
             <v-card
-              class="notice d-flex flex-column"
+              class="notice d-flex flex-column animate__animated animate__pulse"
               :elevation="hover ? 20 : 4"
               rounded="lg"
               ref="sticky"

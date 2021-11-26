@@ -24,7 +24,7 @@
               <!-- 分组成员 -->
               <div class="link-list d-flex flex-wrap">
                 <div
-                  class="link-item"
+                  class="link-item  animate__animated animate__pulse"
                   v-for="link in linkgroup.children"
                   :key="link.id"
                 >
