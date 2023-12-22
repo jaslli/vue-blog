@@ -22,12 +22,7 @@ import Footer from "./components/footer/index.vue"
   .layout-wrapper {
     height: 100%;
     @apply flex-col;
-
-    .header-wrapper {
-      height: 50px;
-    }
     .main-wrapper {
-      @apply flex-1;
     }
     .footer-wrapper {
       height: 50px;

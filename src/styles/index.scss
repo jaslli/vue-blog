@@ -1,2 +1,14 @@
-/* element-plus样式设置 */
+// element-plus样式设置
 @use "./element/index" as *;
+
+// 字体定义
+@font-face {
+  font-family: "JetBrainsMono-Light";
+  src: url("@/assets/JetBrainsMono-Light.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: JetBrainsMono-Light, serif;
+}

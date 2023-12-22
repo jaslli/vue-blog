@@ -9,7 +9,10 @@
 
 <style lang="scss" scoped>
 .main-wrapper {
-  background: white;
+  background-image: url("@/assets/anime.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+
   min-height: 1000px;
   height: 100%;
 }
