@@ -11,9 +11,9 @@
 .main-wrapper {
   background-image: url("@/assets/anime.jpg");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 
-  min-height: 1000px;
+  min-height: 1500px;
   height: 100%;
 }
 </style>

@@ -10,4 +10,12 @@ declare global {
         VITE_BASE_API: string;
     }
 
+    /**
+     * 对应 `public/server-config.json` 文件的类型声明
+     */
+    interface ServerConfig {
+        Version?: string;
+        Title?: string;
+    }
+
 }
